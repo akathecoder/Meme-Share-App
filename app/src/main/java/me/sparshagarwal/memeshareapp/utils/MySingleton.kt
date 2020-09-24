@@ -1,4 +1,4 @@
-package me.sparshagarwal.memeshareapp
+package me.sparshagarwal.memeshareapp.utils
 
 import android.content.Context
 import android.graphics.Bitmap

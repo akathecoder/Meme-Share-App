@@ -1,5 +1,7 @@
-package me.sparshagarwal.memeshareapp
+package me.sparshagarwal.memeshareapp.activities
 
+import android.content.Intent
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -10,16 +12,16 @@ import androidx.core.content.ContextCompat
 import androidx.core.view.GestureDetectorCompat
 import com.agrawalsuneet.dotsloader.loaders.LazyLoader
 import com.android.volley.Request
-import com.android.volley.Response
 import com.android.volley.toolbox.JsonObjectRequest
-import com.android.volley.toolbox.StringRequest
-import com.android.volley.toolbox.Volley
 import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_meme.*
+import me.sparshagarwal.memeshareapp.R
+import me.sparshagarwal.memeshareapp.utils.MySingleton
 
 class MemeActivity : AppCompatActivity() {
 
     private lateinit var mDetector: GestureDetectorCompat
+    private lateinit var currentMemeUri : Uri
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,6 +38,16 @@ class MemeActivity : AppCompatActivity() {
         /** Share Button Setup */
         shareBtn.setOnClickListener {
 //            Toast.makeText(this, "Share Button Clicked", Toast.LENGTH_SHORT).show()
+
+            val shareIntent = Intent(android.content.Intent.ACTION_SEND)
+            shareIntent.type = "image/*"
+            shareIntent.putExtra(Intent.EXTRA_STREAM, currentMemeUri)
+//            context.startActivities(arrayOf(Intent.createChooser(shareIntent, "Check this Awesome Meme . . .")))
+            startActivity(Intent.createChooser(shareIntent, "Check this Awesome Meme . . ."))
+        }
+
+        /** Next Button Setup */
+        nextBtn.setOnClickListener {
             loadingBar.visibility = View.VISIBLE
             loadMeme()
         }
@@ -56,10 +68,12 @@ class MemeActivity : AppCompatActivity() {
         loadingBar.addView(lazyLoader)
         loadMeme()
 
+        /** Implement Gesture Detection */
+
 
     }
 
-    private fun loadMeme() {
+    public fun loadMeme() {
         // Instantiate the RequestQueue.
         val url = "https://meme-api.herokuapp.com/gimme"
 
@@ -74,6 +88,8 @@ class MemeActivity : AppCompatActivity() {
                 Glide.with(this)
                     .load(response.getString("url"))
                     .into(iv_meme)
+
+                currentMemeUri = Uri.parse(url)
             },
             { error ->
                 Toast.makeText(this, "Error, Please Retry", Toast.LENGTH_SHORT).show()
@@ -87,5 +103,6 @@ class MemeActivity : AppCompatActivity() {
         MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest)
 
     }
+
 
 }

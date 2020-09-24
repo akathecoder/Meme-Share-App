@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MemeActivity"
+    tools:context=".activities.MemeActivity"
     android:background="@android:color/black"
     >
 
@@ -58,6 +58,20 @@
         android:contentDescription="@string/shareButton"
         android:focusable="true"
         android:src="@drawable/ic_baseline_share_24" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/nextBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignBottom="@+id/shareBtn"
+        android:layout_marginBottom="72dp"
+        android:layout_marginEnd="16dp"
+        android:clickable="true"
+        android:contentDescription="@string/nextBtn"
+        android:focusable="true"
+        android:backgroundTint="@android:color/holo_purple"
+        android:src="@drawable/ic_baseline_navigate_next_24" />
 
     <com.agrawalsuneet.dotsloader.loaders.LazyLoader
         android:id="@+id/loadingBar"

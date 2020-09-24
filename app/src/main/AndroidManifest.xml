@@ -12,14 +12,14 @@
         android:supportsRtl="true"
         android:theme="@style/MemeActivityTheme">
         <activity
-            android:name=".MemeActivity"
+            android:name=".activities.MemeActivity"
             android:screenOrientation="portrait"
             android:theme="@style/MemeActivityTheme">
 
         </activity>
 
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:screenOrientation="portrait"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
